@@ -1,0 +1,1863 @@
+{
+    "name": "Schronisko - zadanie rekrutacyjne",
+    "flow": [
+        {
+            "id": 52,
+            "module": "gateway:CustomMailHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1596989,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -593,
+                    "y": 141
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "false"
+                            },
+                            "label": "Mail trigger"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-mailhook",
+                        "label": "Mailhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 25,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://x8ki-letl-twmt.n7.xano.io/api:AldQ-bKk/animal_type_synonyms",
+                "gzip": true,
+                "method": "get",
+                "headers": [],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": -221,
+                    "y": 148,
+                    "name": "Get animal types"
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "bodyType": {
+                            "label": "Empty",
+                            "collapsed": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "authUser",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "authPass",
+                        "type": "password",
+                        "label": "Password"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 26,
+            "module": "regexp:AdvancedParser",
+            "version": 1,
+            "parameters": {
+                "global": false,
+                "sensitive": false,
+                "multiline": true,
+                "singleline": false,
+                "continueWhenNoRes": true,
+                "advancedParser": true
+            },
+            "mapper": {
+                "pattern": "/b|{{replace(map(25.data.animal_type_synonyms; \"synonym\") + \"|\"; \",\"; \"|\")}}/b",
+                "text": "{{52.text}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 73,
+                    "y": 147
+                },
+                "restore": {},
+                "parameters": [
+                    {
+                        "name": "global",
+                        "type": "boolean",
+                        "label": "Global match",
+                        "required": true
+                    },
+                    {
+                        "name": "sensitive",
+                        "type": "boolean",
+                        "label": "Case sensitive",
+                        "required": true
+                    },
+                    {
+                        "name": "multiline",
+                        "type": "boolean",
+                        "label": "Multiline",
+                        "required": true
+                    },
+                    {
+                        "name": "singleline",
+                        "type": "boolean",
+                        "label": "Singleline",
+                        "required": true
+                    },
+                    {
+                        "name": "continueWhenNoRes",
+                        "type": "boolean",
+                        "label": "Continue the execution of the route even if the module finds no matches",
+                        "required": true
+                    },
+                    {
+                        "name": "advancedParser",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "pattern",
+                        "type": "text",
+                        "label": "Pattern",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 21,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [
+                    {
+                        "name": "synonym",
+                        "value": "{{26.`__IMTMATCH__`}}"
+                    }
+                ],
+                "url": "https://x8ki-letl-twmt.n7.xano.io/api:AldQ-bKk/get_animal_type_by_synonym",
+                "gzip": true,
+                "method": "get",
+                "headers": [],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 382,
+                    "y": 148,
+                    "name": "Get Animal by synonym"
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "bodyType": {
+                            "label": "Empty"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "authUser",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "authPass",
+                        "type": "password",
+                        "label": "Password"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 29,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [
+                    {
+                        "name": "animal",
+                        "value": "{{21.data[].id}}"
+                    },
+                    {
+                        "name": "status",
+                        "value": "Dostępny"
+                    }
+                ],
+                "url": "https://x8ki-letl-twmt.n7.xano.io/api:AldQ-bKk/check_animal_availability",
+                "gzip": true,
+                "method": "get",
+                "headers": [],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 708,
+                    "y": 151,
+                    "name": "Check animals availability"
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null
+                            ]
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "bodyType": {
+                            "label": "Empty"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "authUser",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "authPass",
+                        "type": "password",
+                        "label": "Password"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 35,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "response_email",
+                        "value": "{{52.from.address}}"
+                    },
+                    {
+                        "name": "subject",
+                        "value": "[SCHRONISKO] Status dostępności zwierząt"
+                    },
+                    {
+                        "name": "heading",
+                        "value": "Dzień dobry,<br><br>\nDziękujemy za zainteresowanie naszym schroniskiem.<br>"
+                    },
+                    {
+                        "name": "footer",
+                        "value": "W razie pytań zapraszam do kontaktu. <br><br>\nPozdrawiam <br>\n<strong>Jan Nowak</strong><br>\nOpiekun Schroniska <br>\nTel: 555 555 555"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1103,
+                    "y": 154,
+                    "name": "Set email common parameters"
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "response_email",
+                        "type": "any",
+                        "label": "response_email"
+                    },
+                    {
+                        "name": "subject",
+                        "type": "any",
+                        "label": "subject"
+                    },
+                    {
+                        "name": "heading",
+                        "type": "any",
+                        "label": "heading"
+                    },
+                    {
+                        "name": "footer",
+                        "type": "any",
+                        "label": "footer"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 30,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 1439,
+                    "y": 156
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 47,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "filter": {
+                                "name": "is available",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{29.data}}",
+                                            "b": "{{emptyarray}}",
+                                            "o": "text:notequal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "array": "{{29.data}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1617,
+                                    "y": -227
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "array": {
+                                            "mode": "edit"
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "mode": "edit",
+                                        "name": "array",
+                                        "spec": [],
+                                        "type": "array",
+                                        "label": "Array"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 46,
+                            "module": "util:TextAggregator",
+                            "version": 1,
+                            "parameters": {
+                                "feeder": 47,
+                                "rowSeparator": ""
+                            },
+                            "mapper": {
+                                "value": "<br /> Imię: <strong>{{47.name}} </strong><br />\nWiek: <strong> {{47.age}}</strong><br />\nGatunek: <strong> {{47.`_animal_types`[].animal}} </strong><br />\nWielkość: <strong>{{47.`_animal_size`.size}} </strong><br />"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1922,
+                                    "y": -224
+                                },
+                                "restore": {
+                                    "extra": {
+                                        "feeder": {
+                                            "label": "Iterator [47]"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "rowSeparator": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "rowSeparator",
+                                        "type": "select",
+                                        "label": "Row separator",
+                                        "validate": {
+                                            "enum": [
+                                                "\n",
+                                                "\t",
+                                                "other"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Text"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "module": "email:ActionSendEmail",
+                            "version": 7,
+                            "parameters": {
+                                "folder": "Sent",
+                                "account": 5281435,
+                                "accountImap": 5281400,
+                                "saveAfterSent": true
+                            },
+                            "mapper": {
+                                "cc": [],
+                                "to": "{{35.response_email}}",
+                                "bcc": [],
+                                "from": "",
+                                "html": "{{35.heading}}<br>\nInformujemy, że aktualnie przebywają u nas zwierzęta ({{21.data[].animal}}), które mogą Cię zainteresować. Poniżej przesyłam szczegóły: \n<br />\n{{46.text}}\n<br />\n{{35.footer}}",
+                                "sender": "",
+                                "headers": [],
+                                "replyTo": "",
+                                "subject": "{{35.subject}}",
+                                "priority": "normal",
+                                "inReplyTo": "",
+                                "references": [],
+                                "attachments": [],
+                                "contentType": "html"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2254,
+                                    "y": -232
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "edit"
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "priority": {
+                                            "label": "Normal"
+                                        },
+                                        "references": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "contentType": {
+                                            "label": "HTML"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "folder": {
+                                            "label": "Sent"
+                                        },
+                                        "account": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "smtp"
+                                            },
+                                            "label": "Schronisko email SMTP (SMTP schronisko@kulinski.it)"
+                                        },
+                                        "accountImap": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "imap"
+                                            },
+                                            "label": "Schronisko email IMAP (IMAP schronisko@kulinski.it)"
+                                        },
+                                        "saveAfterSent": {
+                                            "label": "Yes"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "account",
+                                        "type": "account:smtp,google-restricted,microsoft-smtp-imap",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "saveAfterSent",
+                                        "type": "select",
+                                        "label": "Save message after sending",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "hidden"
+                                    },
+                                    {
+                                        "name": "accountImap",
+                                        "type": "account:imap,google-restricted,microsoft-smtp-imap",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "folder",
+                                        "type": "select",
+                                        "label": "Folder",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "contentType",
+                                        "type": "select",
+                                        "label": "Content Type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "html",
+                                                "text"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": [
+                                            {
+                                                "name": "fileName",
+                                                "type": "filename",
+                                                "label": "File name",
+                                                "required": true,
+                                                "semantic": "file:name"
+                                            },
+                                            {
+                                                "name": "data",
+                                                "type": "buffer",
+                                                "label": "Data",
+                                                "required": true,
+                                                "semantic": "file:data"
+                                            },
+                                            {
+                                                "name": "cid",
+                                                "type": "text",
+                                                "label": "Content-ID"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Copy recipient"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Blind copy recipient"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "text",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "sender",
+                                        "type": "text",
+                                        "label": "Sender"
+                                    },
+                                    {
+                                        "name": "replyTo",
+                                        "type": "text",
+                                        "label": "Reply-To"
+                                    },
+                                    {
+                                        "name": "inReplyTo",
+                                        "type": "text",
+                                        "label": "In-Reply-To"
+                                    },
+                                    {
+                                        "name": "references",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Reference",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "References"
+                                    },
+                                    {
+                                        "name": "priority",
+                                        "type": "select",
+                                        "label": "Priority",
+                                        "validate": {
+                                            "enum": [
+                                                "high",
+                                                "normal",
+                                                "low"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "Content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 48,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "filter": {
+                                "name": "isn't available",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{29.data}}",
+                                            "b": "{{emptyarray}}",
+                                            "o": "text:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "ca": "",
+                                "qs": [
+                                    {
+                                        "name": "status",
+                                        "value": "Dostępny"
+                                    }
+                                ],
+                                "url": "https://x8ki-letl-twmt.n7.xano.io/api:AldQ-bKk/all_animal_data_by_availability",
+                                "gzip": true,
+                                "method": "get",
+                                "headers": [],
+                                "timeout": "",
+                                "useMtls": false,
+                                "authPass": "",
+                                "authUser": "",
+                                "bodyType": "",
+                                "serializeUrl": false,
+                                "shareCookies": false,
+                                "parseResponse": true,
+                                "followRedirect": true,
+                                "useQuerystring": false,
+                                "followAllRedirects": false,
+                                "rejectUnauthorized": true
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1747,
+                                    "y": 369
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "qs": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "GET"
+                                        },
+                                        "headers": {
+                                            "mode": "chose"
+                                        },
+                                        "bodyType": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "handleErrors",
+                                        "type": "boolean",
+                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useNewZLibDeCompress",
+                                        "type": "hidden"
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "url",
+                                        "type": "url",
+                                        "label": "URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "serializeUrl",
+                                        "type": "boolean",
+                                        "label": "Serialize URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "method",
+                                        "type": "select",
+                                        "label": "Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "get",
+                                                "head",
+                                                "post",
+                                                "put",
+                                                "patch",
+                                                "delete",
+                                                "options"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "qs",
+                                        "spec": [
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Query String"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "validate": {
+                                            "enum": [
+                                                "raw",
+                                                "x_www_form_urlencoded",
+                                                "multipart_form_data"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "parseResponse",
+                                        "type": "boolean",
+                                        "label": "Parse response",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "authUser",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "authPass",
+                                        "type": "password",
+                                        "label": "Password"
+                                    },
+                                    {
+                                        "name": "timeout",
+                                        "type": "uinteger",
+                                        "label": "Timeout",
+                                        "validate": {
+                                            "max": 300,
+                                            "min": 1
+                                        }
+                                    },
+                                    {
+                                        "name": "shareCookies",
+                                        "type": "boolean",
+                                        "label": "Share cookies with other HTTP modules",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "ca",
+                                        "type": "cert",
+                                        "label": "Self-signed certificate"
+                                    },
+                                    {
+                                        "name": "rejectUnauthorized",
+                                        "type": "boolean",
+                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "followRedirect",
+                                        "type": "boolean",
+                                        "label": "Follow redirect",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useQuerystring",
+                                        "type": "boolean",
+                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "gzip",
+                                        "type": "boolean",
+                                        "label": "Request compressed content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useMtls",
+                                        "type": "boolean",
+                                        "label": "Use Mutual TLS",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "followAllRedirects",
+                                        "type": "boolean",
+                                        "label": "Follow all redirect",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 49,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{48.data}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2035,
+                                    "y": 374
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "array": {
+                                            "mode": "edit"
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "mode": "edit",
+                                        "name": "array",
+                                        "spec": [],
+                                        "type": "array",
+                                        "label": "Array"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 50,
+                            "module": "util:TextAggregator",
+                            "version": 1,
+                            "parameters": {
+                                "feeder": 49,
+                                "rowSeparator": ""
+                            },
+                            "mapper": {
+                                "value": "<br />Imię: <strong>{{49.name}} </strong><br />\nWiek: <strong> {{49.age}}</strong><br />\nGatunek: <strong> {{49.`_animal_types`[].animal}} </strong><br />\nWielkość: <strong>{{49.`_animal_size`.size}} </strong><br />"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2322,
+                                    "y": 380
+                                },
+                                "restore": {
+                                    "extra": {
+                                        "feeder": {
+                                            "label": "Iterator [49]"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "rowSeparator": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "rowSeparator",
+                                        "type": "select",
+                                        "label": "Row separator",
+                                        "validate": {
+                                            "enum": [
+                                                "\n",
+                                                "\t",
+                                                "other"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Text"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 51,
+                            "module": "email:ActionSendEmail",
+                            "version": 7,
+                            "parameters": {
+                                "folder": "Sent",
+                                "account": 5281435,
+                                "accountImap": 5281400,
+                                "saveAfterSent": true
+                            },
+                            "mapper": {
+                                "cc": [],
+                                "to": "{{35.response_email}}",
+                                "bcc": [],
+                                "from": "",
+                                "html": "{{35.heading}}\nInformujemy, że aktualnie nie przebywa w naszym schornisku takie zwierzę. <br>Poniżej przesyłam listę zwierząt, które aktualnie u nas przebywają: \n<br />\n{{50.text}}\n{{35.footer}}",
+                                "sender": "",
+                                "headers": [],
+                                "replyTo": "",
+                                "subject": "{{35.subject}}",
+                                "priority": "normal",
+                                "inReplyTo": "",
+                                "references": [],
+                                "attachments": [],
+                                "contentType": "html"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2623,
+                                    "y": 388
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "edit"
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "priority": {
+                                            "label": "Normal"
+                                        },
+                                        "references": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "contentType": {
+                                            "label": "HTML"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "folder": {
+                                            "label": "Sent"
+                                        },
+                                        "account": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "smtp"
+                                            },
+                                            "label": "Schronisko email SMTP (SMTP schronisko@kulinski.it)"
+                                        },
+                                        "accountImap": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "imap"
+                                            },
+                                            "label": "Schronisko email IMAP (IMAP schronisko@kulinski.it)"
+                                        },
+                                        "saveAfterSent": {
+                                            "label": "Yes"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "account",
+                                        "type": "account:smtp,google-restricted,microsoft-smtp-imap",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "saveAfterSent",
+                                        "type": "select",
+                                        "label": "Save message after sending",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "hidden"
+                                    },
+                                    {
+                                        "name": "accountImap",
+                                        "type": "account:imap,google-restricted,microsoft-smtp-imap",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "folder",
+                                        "type": "select",
+                                        "label": "Folder",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "contentType",
+                                        "type": "select",
+                                        "label": "Content Type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "html",
+                                                "text"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": [
+                                            {
+                                                "name": "fileName",
+                                                "type": "filename",
+                                                "label": "File name",
+                                                "required": true,
+                                                "semantic": "file:name"
+                                            },
+                                            {
+                                                "name": "data",
+                                                "type": "buffer",
+                                                "label": "Data",
+                                                "required": true,
+                                                "semantic": "file:data"
+                                            },
+                                            {
+                                                "name": "cid",
+                                                "type": "text",
+                                                "label": "Content-ID"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Copy recipient"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Blind copy recipient"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "text",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "sender",
+                                        "type": "text",
+                                        "label": "Sender"
+                                    },
+                                    {
+                                        "name": "replyTo",
+                                        "type": "text",
+                                        "label": "Reply-To"
+                                    },
+                                    {
+                                        "name": "inReplyTo",
+                                        "type": "text",
+                                        "label": "In-Reply-To"
+                                    },
+                                    {
+                                        "name": "references",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Reference",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "References"
+                                    },
+                                    {
+                                        "name": "priority",
+                                        "type": "select",
+                                        "label": "Priority",
+                                        "validate": {
+                                            "enum": [
+                                                "high",
+                                                "normal",
+                                                "low"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "Content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
